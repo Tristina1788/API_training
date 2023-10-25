@@ -1,0 +1,34 @@
+stages:
+    - test
+postman_tests:
+    stage: test
+    image: 
+        name: node:latest
+        entrypoint: [""]
+    variables:
+        TESTRAIL_DOMAIN: "edgewave.testrail.com"
+        TESTRAIL_USERNAME: "minhtrang1788@gmail.com"
+        TESTRAIL_DOMAIN: "qzKRcE22M4oCReQOXhdB-fvLaQzpM.MmHF79y6IYc"
+        TESTRAIL_PROJECTID: "1"
+        TESTRAIL_RUNID: "1"
+        TESTRAIL_SUITEID: "1"
+        TESTRAIL_LOGGING: "none"
+    script:
+        - node --version  # Check the current Node.js version
+        - npm install -g n  # Install 'n' to manage Node.js versions
+        - n latest  # Install the latest Node.js version
+        - node --version  # Verify the updated Node.js version
+        - npm install -g newman
+        - newman --version
+        - echo $TESTRAIL_USERNAME
+        - npm install -g newman newman-reporter-html
+        - npm install -g newman newman-reporter-testrail --global
+        - npm install -g newman newman-reporter-htmlextra
+        - npm install -g newman newman-reporter-junitfull
+        - newman run loadtest.postman_collection.json --reporters cli,testrail,html,htmlextra,junit --reporter-html-export report.html --reporter-junit-export report.xml
+    artifacts:
+        when: always
+        paths:
+            - newman
+        reports:
+            junit: report.xml
