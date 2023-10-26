@@ -5,4 +5,4 @@ set TESTRAIL_PROJECTID=1
 set TESTRAIL_RUNID=1
 set TESTRAIL_SUITEID=1
 set TESTRAIL_LOGGING=none
-newman run loadtest.postman_collection.json --reporters cli,testrail,html,htmlextra,junit --reporter-html-export report.html --reporter-junit-export report.xml
+newman run loadtest.postman_collection.json --reporters cli,testrail,htmlextra --reporter-html-export
